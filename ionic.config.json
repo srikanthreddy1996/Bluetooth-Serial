@@ -1,0 +1,7 @@
+{
+  "name": "DAE",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
