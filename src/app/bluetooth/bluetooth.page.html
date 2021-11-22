@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar class="black-header">
+    <ion-title class="" (click)="fetchPairedDevices()">Bluetooth</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="bluetoothState">
+  <ion-text >
+    <div class="font-14">Bluetooth is On</div>
+    <div class="clearfix" style="height: 5px;"></div>
+    <div class="font-13">Make Sure the device you want to connect to is in pairing mode. Your mobile Bluetooth is on.</div>
+  </ion-text>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="fetchPairedDevices()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Fetch pairedDevices</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="fetchUnPairedDevices()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Fetch unpairedDevices</ion-title>
+  </ion-toolbar>
+  <ion-list *ngIf="pairedDevices.length>0">
+    <ion-item *ngFor="let item of pairedDevices; index as i;">
+      <ion-label (click)="connect(i)" [ngStyle]="{'background-color': item.isConnected?'red':'white'}" style="background-color: red;">{{item.name}}({{item.address}})</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

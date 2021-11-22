@@ -1,0 +1,81 @@
+
+.black-header{
+    --background: #131D1A;
+    --color: white;
+    color: white;
+    --font-weight: bold;
+}
+
+ion-content{
+    background-color: #eeeeee;
+    background: #eeeeee;
+    --background: #eeeeee;
+}
+.clearfix
+{
+	clear: both;
+}
+
+ion-title{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.setting-icon{
+    margin-right: 15px;
+    zoom: 1;
+    font-size: 30px;
+}
+
+.icon-sync{
+    font-size: 25px;
+}
+
+ion-content {
+    --padding-bottom: 10px;
+    --padding-end: 10px;
+    --padding-start: 10px;
+    --padding-top: 10px;
+}
+
+
+ion-card{
+    --padding-bottom: 8px;
+    --padding-end: 8px;
+    --padding-start: 8px;
+    --padding-top: 8px;
+    background-color: #FFFFFF;
+    background: #FFFFFF;
+    --background: #FFFFFF;
+}
+
+.connected{
+    color: #124EAF;
+    --color:#124EAF;
+}
+
+.not-connected{
+    color: #868686;
+    --color:#868686;
+}
+
+.link{
+    text-decoration: underline;
+    color: rgb(59, 59, 224);
+}
+
+.serial_data{
+    width: 100%;
+    min-height: 100px;
+    max-height: 100px;
+    overflow: auto;
+}
+
+.buffer{
+    width: 50%;
+    float: left;
+}

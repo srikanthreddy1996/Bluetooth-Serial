@@ -1,0 +1,41 @@
+.new-background-color{
+    --background: #131D1A;
+    --color: white;
+    --font-weight: bold;
+}
+
+ion-title{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    text-align: center;
+    font-weight: bolder;
+}
+
+ion-content {
+    --padding-bottom: 15px;
+    --padding-end: 15px;
+    --padding-start: 15px;
+    --padding-top: 15px;
+}
+.toggle-icon{
+    --background:#6A9BEB;
+    float: right;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 25px;
+    color: white;
+    zoom: 0.7;
+    width: 120px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.font-14{
+    font-size: 14px;
+    font-weight: bold;
+}
+.font-13{
+    font-size: 13px;
+}

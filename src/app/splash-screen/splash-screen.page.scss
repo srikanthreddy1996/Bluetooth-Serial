@@ -1,0 +1,15 @@
+.splash {
+    // background: url("../img/splash_screen.png") 0 0 no-repeat;
+    //background-image: url('../../img/splash_screen.png');
+    background: url(../../assets/img/splash/bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    display: table;
+    font-family: 'Open Sans', sans-serif;
+}
+.main-splash {
+    width: 100%;
+    height: 100%;
+}
