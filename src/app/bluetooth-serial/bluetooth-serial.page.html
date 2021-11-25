@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar class="black-header">
-    <ion-title class="" (click)="go()">Bluetooth
+    <ion-title class="" (click)="notify()">Bluetooth
       <ion-icon name="bluetooth-outline"></ion-icon>
     </ion-title>
     <ion-icon class="setting-icon" name="settings-outline" slot="end" (click)="openSettings()"></ion-icon>
@@ -16,7 +16,7 @@
     <div class="font-14">No Device Connected</div>
     <div class="clearfix" style="height: 5px;"></div>
     <!-- <div class="font-13">Please <span  (click)="openSettingsIfNotConnected()" class="link">Connect</span> Device to track </div> -->
-    <div class="font-13">Please Connect to paired Device to track </div>
+    <div class="font-13">Please Connect to paired Device to track, If you dont see the device in paired devices click on settings icon and pair new device</div>
   </ion-text>
   <ion-card>
     <ion-item>

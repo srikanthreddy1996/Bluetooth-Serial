@@ -5,7 +5,8 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
-// import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import {ChangeDetectorRef} from '@angular/core'
 
 @Component({
   selector: 'app-bluetooth-serial',
@@ -21,7 +22,8 @@ export class BluetoothSerialPage implements OnInit {
     public toastController: ToastController,
     public alertController: AlertController,
     public plt: Platform,
-    // public localNotifications:LocalNotifications
+    public localNotifications:LocalNotifications,
+    private ref: ChangeDetectorRef
   ) { }
 
   async presentToast(message, duration = 2000) {
@@ -66,6 +68,7 @@ export class BluetoothSerialPage implements OnInit {
     this.router.navigateByUrl('bluetooth');
   }
   ionViewDidEnter() {
+    // this.presentAlert('View enter');
     this.checktillConnectStatus();
     this.subscribeToData();
   }
@@ -75,7 +78,7 @@ export class BluetoothSerialPage implements OnInit {
       enable => {
         this.enabled = true;
         this.fetchPairedDevices();
-        this.fetchUnPairedDevices();
+        // this.fetchUnPairedDevices();
         // this.openSettingsIfNotConnected();
       }, disable => {
         this.enabled = false;
@@ -90,9 +93,9 @@ export class BluetoothSerialPage implements OnInit {
         this.enabled = true;
         if (fetch) {
           this.fetchPairedDevices();
-          this.fetchUnPairedDevices();
+          // this.fetchUnPairedDevices();
         }
-        this.openSettingsIfNotConnected();
+        // this.openSettingsIfNotConnected();
       },
       notEnable => {
         this.enabled = false;
@@ -193,18 +196,27 @@ export class BluetoothSerialPage implements OnInit {
         this.isConnected = false;
       });
   }
+  private connectryCount=0;
   private connectPairedDeviceInSecure(i) {
     if (this.pairedDevices[i]['isConnected'] == true) {
       return false;
+      this.fetchPairedDevices();
     }
+    this.connectryCount++;
     let mac_address_or_uuid = this.pairedDevices[i].address;
     this.bluetoothSerial.connectInsecure(mac_address_or_uuid).subscribe(connect => {
       this.presentToast('Connected Insecure' + JSON.stringify(connect), 3000);
+      this.connectryCount=0;
       this.makeDeviceConnected(i);
     }, error => {
-      this.presentToast('Error Connecting Device Insecure' + JSON.stringify(error), 3000);
+      if(this.connectryCount%4==0){
+          this.presentToast('Error Connecting Device Insecure' + JSON.stringify(error), 3000);
+      }
       this.isConnected = false;
       this.pairedDevices[i]['isConnected'] = false;
+      setTimeout(function () {
+        this.connectPairedDeviceInSecure(i);
+      }, 1000);
     });
   }
 
@@ -222,6 +234,7 @@ export class BluetoothSerialPage implements OnInit {
     this.bluetoothSerial.connect(mac_address_or_uuid).subscribe(connection => {
       this.presentAlert(JSON.stringify(connection));
       this.pairedDevices[i]['isConnected'] = true;
+      this.ref.detectChanges();
     }, noConnection => {
       this.presentAlert(JSON.stringify(noConnection));
     });
@@ -240,6 +253,9 @@ export class BluetoothSerialPage implements OnInit {
     this.bluetoothSerial.subscribe('\n').subscribe(success => {
       // this.presentToast(J SON.stringify(success));
       if (success) {
+        if(success.indexOf('Motion detected')!=-1){
+          this.notify("Motion Detected through DAE hardware device");
+        }
         this.buffer += success;
       }
     }, error => {
@@ -265,13 +281,18 @@ export class BluetoothSerialPage implements OnInit {
     });
   }
 
-  // private notify(text){
-  //   this.localNotifications.schedule({
-  //     id: 1,
-  //     text: 'Single ILocalNotification',
-  //     sound: this.plt.is('android')? 'file://sound.mp3': 'file://beep.caf',
-  //     data: { secret: 'secret' },
-  //     foreground: true
-  //   });
-  // }
+  private noti=0;
+  private notify(text){
+    this.localNotifications.schedule({
+      id: this.noti++,
+      text: text,
+      sound: "file://assets/audio/motion_detected.mp3",
+      // data: { secret: 'secret' },
+      vibrate: true,
+      lockscreen:true,
+      foreground: true,
+      wakeup: true,
+      silent:false
+    });
+  }
 }

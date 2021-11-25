@@ -22,7 +22,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     BluetoothLE,
     Platform,
     AndroidPermissions,
-    // LocalNotifications,
+    LocalNotifications,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
 ],
   bootstrap: [AppComponent],

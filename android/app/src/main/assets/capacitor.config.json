@@ -1,11 +1,13 @@
 {
-	"appId": "io.ionic.starter",
+	"appId": "com.pixelvide.ifmis.dae",
 	"appName": "DAE",
 	"webDir": "www",
 	"bundledWebRuntime": false,
+	"npmClient": "npm",
 	"plugins": {
 		"SplashScreen": {
 			"launchShowDuration": 0
-		}
+		},
+		"LocalNotifications": {}
 	}
 }
